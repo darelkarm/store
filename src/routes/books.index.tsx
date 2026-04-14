@@ -26,7 +26,7 @@ function BooksPage() {
 
   let filteredBooks = selectedCategory
     ? getBooksByCategory(selectedCategory)
-    : books;
+    : [...books].sort((a, b) => (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0));
 
   if (sortBy === "price-asc") {
     filteredBooks = [...filteredBooks].sort((a, b) => a.priceEGP - b.priceEGP);
