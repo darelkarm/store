@@ -48,7 +48,7 @@ function AboutPage() {
             { icon: BookOpen, title: "رسالتنا", text: "نشر المعرفة وتوفير كتب عالية الجودة تثري العقل العربي ومساعدة الأدباء والشباب في مشوارهم الأدبي" },
             { icon: Globe, title: "رؤيتنا", text: "أن نكون الوجهة الأولى للقراء العرب حول العالم ونوصل إصداراتنا لكل مكان" },
             { icon: Users, title: "فريقنا", text: "نخبة من المحررين والمترجمين المتخصصين في مختلف المجالات من مصر والوطن العربي والأجنبي" },
-            { icon: Award, title: "قيمنا", text: "الجودة والإبداع والالتزام بتقديم أفضل المحتوى الثقافي تحت شعار الكرم في كل صفحة" },
+            { icon: Award, title: "قيمنا", text: "الجودة والإبداع والالتزام بتقديم أفضل المحتوى الثقافي الكرم في كل صفحة... المعرفة في كل كلمة" },
           ].map((item, i) => (
             <div key={i} className="bg-card rounded-xl p-6 border border-border card-hover">
               <item.icon className="h-10 w-10 text-gold mb-4" />
@@ -95,7 +95,7 @@ function AboutPage() {
                 <Users className="h-8 w-8 text-primary" />
               </div>
               <h3 className="font-heading font-bold text-foreground text-lg">ندى أحمد</h3>
-              <p className="text-muted-foreground text-sm">المديرة العامة</p>
+              <p className="text-muted-foreground text-sm">المديرة العام</p>
             </div>
           </div>
         </div>
