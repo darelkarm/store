@@ -4,7 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>دار الكرم للنشر والتوزيع والترجمة</title>
-    <script type="module" crossorigin src="/store/assets/index-CIuODE8m.js"></script>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var redirectPath = params.get("p");
+
+        if (!redirectPath) return;
+
+        var nextUrl =
+          window.location.origin +
+          redirectPath +
+          (params.get("q") ? "?" + params.get("q") : "") +
+          window.location.hash;
+
+        window.history.replaceState(null, "", nextUrl);
+      })();
+    </script>
+    <script type="module" crossorigin src="/store/assets/index-ChCwB9y5.js"></script>
     <link rel="stylesheet" crossorigin href="/store/assets/index-U7AFLt14.css">
   </head>
   <body>

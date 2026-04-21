@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      (function () {
+        var base = "/store/";
+        var path = window.location.pathname;
+        var search = window.location.search ? window.location.search.slice(1) : "";
+        var redirectTarget =
+          window.location.origin +
+          base +
+          "?p=" +
+          encodeURIComponent(path) +
+          (search ? "&q=" + encodeURIComponent(search) : "") +
+          window.location.hash;
+
+        window.location.replace(redirectTarget);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
