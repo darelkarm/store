@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Loading…</title>
+    <script>
+      const base = "/store";
+      const currentPath = location.pathname + location.search + location.hash;
+      const indexUrl = `${base}/index.html`;
+
+      fetch(indexUrl, { cache: "no-store" })
+        .then((response) => response.text())
+        .then((html) => {
+          document.open();
+          document.write(html);
+          document.close();
+          history.replaceState({}, "", currentPath);
+        })
+        .catch(() => {
+          document.body.innerHTML = '<p>Loading failed. Please <a href="/store/">go back to the homepage</a>.</p>';
+        });
+    </script>
+  </head>
+  <body>
+    <p>Loading…</p>
+  </body>
+</html>
