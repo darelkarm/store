@@ -13,7 +13,9 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KaramAdminIndexRouteImport } from './routes/karam-admin.index'
 import { Route as BooksIndexRouteImport } from './routes/books.index'
+import { Route as KaramAdminDashboardRouteImport } from './routes/karam-admin.dashboard'
 import { Route as BooksBookIdRouteImport } from './routes/books.$bookId'
 
 const ContactRoute = ContactRouteImport.update({
@@ -36,9 +38,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KaramAdminIndexRoute = KaramAdminIndexRouteImport.update({
+  id: '/karam-admin/',
+  path: '/karam-admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BooksIndexRoute = BooksIndexRouteImport.update({
   id: '/books/',
   path: '/books/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KaramAdminDashboardRoute = KaramAdminDashboardRouteImport.update({
+  id: '/karam-admin/dashboard',
+  path: '/karam-admin/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BooksBookIdRoute = BooksBookIdRouteImport.update({
@@ -53,7 +65,9 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/books/$bookId': typeof BooksBookIdRoute
+  '/karam-admin/dashboard': typeof KaramAdminDashboardRoute
   '/books/': typeof BooksIndexRoute
+  '/karam-admin/': typeof KaramAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +75,9 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/books/$bookId': typeof BooksBookIdRoute
+  '/karam-admin/dashboard': typeof KaramAdminDashboardRoute
   '/books': typeof BooksIndexRoute
+  '/karam-admin': typeof KaramAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,7 +86,9 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/books/$bookId': typeof BooksBookIdRoute
+  '/karam-admin/dashboard': typeof KaramAdminDashboardRoute
   '/books/': typeof BooksIndexRoute
+  '/karam-admin/': typeof KaramAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,9 +98,19 @@ export interface FileRouteTypes {
     | '/cart'
     | '/contact'
     | '/books/$bookId'
+    | '/karam-admin/dashboard'
     | '/books/'
+    | '/karam-admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/cart' | '/contact' | '/books/$bookId' | '/books'
+  to:
+    | '/'
+    | '/about'
+    | '/cart'
+    | '/contact'
+    | '/books/$bookId'
+    | '/karam-admin/dashboard'
+    | '/books'
+    | '/karam-admin'
   id:
     | '__root__'
     | '/'
@@ -90,7 +118,9 @@ export interface FileRouteTypes {
     | '/cart'
     | '/contact'
     | '/books/$bookId'
+    | '/karam-admin/dashboard'
     | '/books/'
+    | '/karam-admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -99,7 +129,9 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
   BooksBookIdRoute: typeof BooksBookIdRoute
+  KaramAdminDashboardRoute: typeof KaramAdminDashboardRoute
   BooksIndexRoute: typeof BooksIndexRoute
+  KaramAdminIndexRoute: typeof KaramAdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -132,11 +164,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/karam-admin/': {
+      id: '/karam-admin/'
+      path: '/karam-admin'
+      fullPath: '/karam-admin/'
+      preLoaderRoute: typeof KaramAdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/books/': {
       id: '/books/'
       path: '/books'
       fullPath: '/books/'
       preLoaderRoute: typeof BooksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/karam-admin/dashboard': {
+      id: '/karam-admin/dashboard'
+      path: '/karam-admin/dashboard'
+      fullPath: '/karam-admin/dashboard'
+      preLoaderRoute: typeof KaramAdminDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/books/$bookId': {
@@ -155,7 +201,9 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   ContactRoute: ContactRoute,
   BooksBookIdRoute: BooksBookIdRoute,
+  KaramAdminDashboardRoute: KaramAdminDashboardRoute,
   BooksIndexRoute: BooksIndexRoute,
+  KaramAdminIndexRoute: KaramAdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
