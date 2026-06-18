@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { getBookById, categories } from "@/data/books";
+import { useBooks } from "@/hooks/use-books";
 import { useLocationPricing } from "@/hooks/use-location-pricing";
 import { useCart } from "@/hooks/use-cart";
 import { ShoppingCart, Star, ArrowRight, BookOpen, Calendar, MessageCircle } from "lucide-react";
@@ -32,7 +33,8 @@ export const Route = createFileRoute("/books/$bookId")({
 
 function BookDetailPage() {
   const { bookId } = Route.useParams();
-  const book = getBookById(bookId);
+  const { books } = useBooks();
+  const book = books.find((b) => b.id === bookId) ?? getBookById(bookId);
   const { formatPrice } = useLocationPricing();
   const { addToCart } = useCart();
 
