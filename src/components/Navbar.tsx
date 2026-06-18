@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { ShoppingCart, Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
-import { books } from "@/data/books";
+import { useBooks } from "@/hooks/use-books";
 import logo from "@/assets/logo.png";
 
 export function Navbar() {
@@ -12,6 +12,7 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const { itemCount } = useCart();
+  const { books } = useBooks();
   const location = useLocation();
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
