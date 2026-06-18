@@ -4,32 +4,7 @@
 -- Then run supabase/seed.sql to import all existing books.
 -- ============================================================
 
--- ---------- CATEGORIES ----------
-CREATE TABLE IF NOT EXISTS public.categories (
-  slug        text PRIMARY KEY,
-  name        text NOT NULL,
-  sort_order  int  NOT NULL DEFAULT 0,
-  created_at  timestamptz NOT NULL DEFAULT now()
-);
-
-GRANT SELECT ON public.categories TO anon;
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.categories TO authenticated;
-GRANT ALL ON public.categories TO service_role;
-
-ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "categories_public_read" ON public.categories;
-CREATE POLICY "categories_public_read" ON public.categories
-  FOR SELECT TO anon, authenticated USING (true);
-
-DROP POLICY IF EXISTS "categories_admin_write" ON public.categories;
-CREATE POLICY "categories_admin_write" ON public.categories
-  FOR ALL TO authenticated
-  USING (public.is_admin(auth.uid()))
-  WITH CHECK (public.is_admin(auth.uid()));
-
--- ---------- ADMIN ROLES ----------
--- Roles are stored separately (never on profiles) to avoid privilege escalation.
+-- ---------- ADMIN ROLES (must come first — used by policies below) ----------
 DO $$ BEGIN
   CREATE TYPE public.app_role AS ENUM ('admin');
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
@@ -59,6 +34,30 @@ AS $$
     WHERE user_id = _user_id AND role = 'admin'
   );
 $$;
+
+-- ---------- CATEGORIES ----------
+CREATE TABLE IF NOT EXISTS public.categories (
+  slug        text PRIMARY KEY,
+  name        text NOT NULL,
+  sort_order  int  NOT NULL DEFAULT 0,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+
+GRANT SELECT ON public.categories TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.categories TO authenticated;
+GRANT ALL ON public.categories TO service_role;
+
+ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "categories_public_read" ON public.categories;
+CREATE POLICY "categories_public_read" ON public.categories
+  FOR SELECT TO anon, authenticated USING (true);
+
+DROP POLICY IF EXISTS "categories_admin_write" ON public.categories;
+CREATE POLICY "categories_admin_write" ON public.categories
+  FOR ALL TO authenticated
+  USING (public.is_admin(auth.uid()))
+  WITH CHECK (public.is_admin(auth.uid()));
 
 -- ---------- BOOKS ----------
 CREATE TABLE IF NOT EXISTS public.books (
