@@ -3,7 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BookCard } from "@/components/BookCard";
 import { CategoryIcon } from "@/components/CategoryIcon";
-import { books, categories, getBooksByCategory } from "@/data/books";
+import { useBooks, getBooksByCategoryFrom } from "@/hooks/use-books";
 import { useState } from "react";
 
 export const Route = createFileRoute("/books/")({
@@ -23,9 +23,10 @@ function BooksPage() {
   const initialCategory = urlParams.get("category") || "";
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState("default");
+  const { books, categories } = useBooks();
 
   let filteredBooks = selectedCategory
-    ? getBooksByCategory(selectedCategory)
+    ? getBooksByCategoryFrom(books, selectedCategory)
     : [...books].sort((a, b) => (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0));
 
   if (sortBy === "price-asc") {

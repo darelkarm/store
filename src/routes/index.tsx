@@ -5,7 +5,7 @@ import { BookCard } from "@/components/BookCard";
 import { BookishPattern } from "@/components/BookishPattern";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
-import { getFeaturedBooks, getBestSellers, categories } from "@/data/books";
+import { useBooks } from "@/hooks/use-books";
 import { ArrowLeft, BookOpen, Users, Globe, Sparkles } from "lucide-react";
 import logo from "@/assets/logo.png";
 
@@ -22,8 +22,9 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const featured = getFeaturedBooks();
-  const bestSellers = getBestSellers();
+  const { books, categories } = useBooks();
+  const featured = books.filter((b) => b.isFeatured);
+  const bestSellers = books.filter((b) => b.isBestSeller);
 
   return (
     <div className="min-h-screen">
